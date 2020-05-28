@@ -29,12 +29,30 @@ public class Person {
                 ", name='" + name + '\'' +
                 ", sex=" + sex +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", status=" + status +
-                ", admin=" + admin +
                 '}';
+    }
+
+    public void setSex(byte sex) {
+        this.sex = sex;
+    }
+
+    public byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(byte status) {
+        this.status = status;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public Person(int id, String name, byte sex, String email, String password, String phoneNumber, String address, byte status, boolean admin) {
