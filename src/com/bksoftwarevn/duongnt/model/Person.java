@@ -9,7 +9,6 @@ public class Person {
     private String email;
     private String password;
     private String phoneNumber;
-    private Date birthday;
     private String address;
 
     public Person() {
@@ -40,14 +39,13 @@ public class Person {
         this.name = name;
     }
 
-    public Person(int id, String name, byte sex, String email, String password, String phoneNumber, Date birthday, String address) {
+    public Person(int id, String name, byte sex, String email, String password, String phoneNumber, String address) {
         this.id = id;
         this.name = name;
         this.sex = sex;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
         this.address = address;
     }
 
@@ -77,14 +75,6 @@ public class Person {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public String getAddress() {
