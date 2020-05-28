@@ -4,6 +4,8 @@ import com.bksoftwarevn.duongnt.model.Person;
 
 import java.util.Scanner;
 
+
+//đăng nhập, đăng ký với trường status, tìm kiếm các thuộc tính
 public class PersonController {
 
     Scanner sc = new Scanner(System.in);
