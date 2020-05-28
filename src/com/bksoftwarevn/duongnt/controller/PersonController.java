@@ -1,5 +1,6 @@
 package com.bksoftwarevn.duongnt.controller;
 
+import com.bksoftwarevn.duongnt.common.AppConst;
 import com.bksoftwarevn.duongnt.model.Person;
 
 import java.util.Scanner;
@@ -20,6 +21,12 @@ public class PersonController {
     //signUp
     public Person signUp() {
         Person p = null;
+        //khởi tạo một person
+        p = new Person(AppConst.count++, checkName(), checkSex(),
+                checkEmail(), checkPassword(), checkPhoneNumber(),
+                checkAddress(), (byte) 0, false);
+        //lưu trữ person vừa khởi tạo thành công.
+        AppConst.listPerson.add(p);
         return p;
     }
 
@@ -33,7 +40,7 @@ public class PersonController {
         while (true) {
             printInput("email");
             email = new Scanner(System.in).nextLine();
-            if (email.matches(" ^[a-zA-Z][a-zA-Z0-9_\\.]{5,32}@ [a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,3}$" ))
+            if ())
                 break;
             printError("email");
         }
@@ -84,7 +91,7 @@ public class PersonController {
         while (true) {
             printInput("mật khẩu");
             password = new Scanner(System.in).nextLine();
-            if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$")) {
+            if () {
                 break;
             }
             printError("mật khẩu");
@@ -105,12 +112,12 @@ public class PersonController {
         return phoneNumber;
     }
 
-    public boolean isEmail(String password) {
-        return password.matches("\\w+");
+    public boolean isEmail(String email) {
+        return email.matches(email.matches(" ^[a-zA-Z][a-zA-Z0-9_\\.]{5,32}@ [a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,3}$" );
     }
 
     public boolean isPassword(String password) {
-        return password.matches("\\w+");
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$");
     }
 
     public void printInput(String text) {

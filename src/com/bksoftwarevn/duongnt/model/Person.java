@@ -10,7 +10,55 @@ public class Person {
     private String password;
     private String phoneNumber;
     private String address;
-    private boolean admin;
+    private byte status; //0 là hoạt động bt, 1 là bị khóa sau
+    // bao nhiêu thời gian không đăng nhập lại thì sẽ bị xóa, 2 bị xóa
+    // ở trạng thái khóa thì các người dùng khác sẽ không tìm kiếm được
+    //thông tin ngoại trừ admin
+    // ở trái thái xóa thì tất cả người dùng trong hệ thống đều không tìm
+    //kiếm được
+    //ở trạng thái xóa tài khoản sẽ không đăng nhập được
+    //ở trạng thái khóa khi vẫn tính tồn tại email
+    // ở trạng thái xóa thì tính không tại email
+    private boolean admin; // true là admin, false người dùng bình thường
+
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", admin=" + admin +
+                '}';
+    }
+
+    public Person(int id, String name, byte sex, String email, String password, String phoneNumber, String address, byte status, boolean admin) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.status = status;
+        this.admin = admin;
+    }
+
+    public Person(int id, String name, byte sex, String email, String password, String phoneNumber, String address, boolean admin) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.admin = admin;
+    }
 
     public Person() {
     }
