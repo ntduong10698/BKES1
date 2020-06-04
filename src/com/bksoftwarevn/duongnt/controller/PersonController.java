@@ -2,6 +2,8 @@ package com.bksoftwarevn.duongnt.controller;
 
 import com.bksoftwarevn.duongnt.common.AppConst;
 import com.bksoftwarevn.duongnt.model.Person;
+import com.bksoftwarevn.duongnt.service.PersonService;
+import com.bksoftwarevn.duongnt.serviceImpl.PersonServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,31 +11,12 @@ import java.util.Scanner;
 
 //đăng nhập, đăng ký với trường status, tìm kiếm các thuộc tính
 public class PersonController {
+
+    PersonServiceImpl personService = new PersonServiceImpl();
     
     //signIn
     public Person signIn() {
-        System.out.println("*****Đăng nhập*****");
-        Person p = null;
-        printInput("email");
-        String email = new Scanner(System.in).nextLine();
-        printInput("password");
-        String password = new Scanner(System.in).nextLine();
-        if(isEmail(email) && isPassword(password)) {
-            for(Person p1: AppConst.listPerson) {
-                if(p1.getStatus() == 0 && p1.getEmail().equals(email) &&
-                        p1.getPassword().equals(password)) {
-                    p = p1;
-                    break;
-                }
-            }
-        }
-        if(p == null) {
-            System.out.println("Tài khoản hoặc mật khẩu không đúng!");
-        } else {
-            System.out.println("*****Đăng nhập thành công.*****");
-            System.out.println(AppConst.nameProject);
-        }
-        return p;
+        return personService.signIn();
     }
 
     //signUp
@@ -172,19 +155,11 @@ public class PersonController {
         printInput("Địa chỉ");
         String address = new Scanner(System.in).nextLine();
         int count = 0;
-        if(admin) {
-            for(Person p: AppConst.listPerson) {
-                if(p.getStatus() < 2 && p.getAddress().toUpperCase().indexOf(address.toUpperCase()) > 0) {
-                    System.out.println(p);
+        for (Person p: AppConst.listPerson) {
+            if((p.getStatus() == 0 || (p.getStatus() == 1 && admin))
+                    && p.getAddress().toUpperCase().indexOf(address.toUpperCase()) > 0) {
+                System.out.println(p);
                     count++;
-                }
-            }
-        } else {
-            for(Person p: AppConst.listPerson) {
-                if(p.getStatus() == 0 && p.getAddress().toUpperCase().indexOf(address.toUpperCase()) > 0) {
-                    System.out.println(p);
-                    count++;
-                }
             }
         }
 
@@ -199,4 +174,70 @@ public class PersonController {
 
     public void searchSex() {}
 
+    public void search(boolean admin) {
+        System.out.println("****Tìm kiếm chung****");
+        printInput("tên");
+        String name = new Scanner(System.in).nextLine();
+        printInput("giới tính: 0: Nam, 1: Nữ, 2: Khác, -1: Tìm tất cả");
+        byte gender = new Scanner(System.in).nextByte();
+        printInput("email");
+        String email = new Scanner(System.in).nextLine();
+        printInput("số điện thoại");
+        String phoneNumber = new Scanner(System.in).nextLine();
+        printInput("địa chỉ:");
+        String address = new Scanner(System.in).nextLine();
+        int count = 0;
+        for (Person p : AppConst.listPerson) {
+            if ((p.getStatus() == 0 || (p.getStatus() == 1 && admin))
+                && p.getAddress().toUpperCase().indexOf(address.toUpperCase()) > 0
+                && p.getName().toUpperCase().indexOf(name.toUpperCase()) > 0
+                && p.getPhoneNumber().toUpperCase().indexOf(phoneNumber.toUpperCase()) > 0
+                && (gender == -1 || p.getSex() == gender)) {
+                System.out.println(p);
+                count++;
+            }
+        }
+        if(count == 0) {
+            System.out.println("Không có thông tin tìm kiếm phù hợp!");
+        } else {
+            System.out.println("Có "+count+" thông tin tìm kiếm phù hợp");
+        }
+    }
+
+
+
+
+
+    //find
+//    public void find() {
+//        System.out.println("*****Tìm kiếm*****");
+//        printInput("Tên");
+//        String name = new Scanner(System.in).nextLine();
+//        printInput("Giới tính 0: Nam, 1: Nữ, 2: Khác, -1: để chọn tất cả");
+//        byte sex = new Scanner(System.in).nextByte();
+//        printInput("email");
+//        String email = new Scanner(System.in).nextLine();
+//        printInput("số điện thoại");
+//        String phoneNumber = new Scanner(System.in).nextLine();
+//        printInput("địa chỉ");
+//        String address = new Scanner(System.in).nextLine();
+//        int count = 0;
+//        for(Person p: AppConst.listPerson) {
+//            if(p.getStatus() == 0 &&
+//                    (p.getName().toUpperCase().indexOf(name.toUpperCase()) > 1)
+//                    && ( sex == -1 || p.getSex() == sex )
+//                    && (p.getEmail().toUpperCase().indexOf(email.toUpperCase()) > 1)
+//                    && (p.getPhoneNumber().toUpperCase().indexOf(phoneNumber.toUpperCase()) > 1)
+//                    && (p.getAddress().toUpperCase().indexOf(address.toUpperCase()) > 1)) {
+//                System.out.println(p);
+//                count++;
+//            }
+//        }
+//        if(count == 0) {
+//            System.out.println("Không có thông tin tìm kiếm phù hợp!");
+//        } else {
+//            System.out.println("Có "+count+" thông tin tìm kiếm phù hợp");
+//        }
+//    }
+    // tương tự find với admin chia ra 2 trường hợp tìm cả < 2 hoặc là bằng nhập vào
 }
